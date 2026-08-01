@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "Revisar Terraform contra los estándares",
+  "description": "Revisa todos los .tf contra los estándares cuando cambia el steering",
+  "version": "1.1.0",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      ".kiro/steering/*.md",
+      ".kiro/skills/*"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Se acaba de actualizar un archivo de steering o una skill del workspace. Lee la última versión de todos los archivos de steering en .kiro/steering/ y de las skills en .kiro/skills/ (si existen), y luego revisa todos los archivos Terraform de la carpeta para asegurar que cumplen los estándares y convenciones vigentes. Reporta cualquier desviación y sugiere o aplica las correcciones."
+  }
+}

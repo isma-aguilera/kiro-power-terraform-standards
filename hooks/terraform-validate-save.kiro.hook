@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Validar Terraform al guardar",
+  "description": "Ejecuta fmt, validate y tflint cada vez que se guarda un archivo .tf",
+  "version": "1.2.0",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "*.tf"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "terraform fmt -check -diff . 2>&1; terraform validate -no-color 2>&1; if command -v tflint >/dev/null 2>&1; then tflint 2>&1; fi; true"
+  }
+}

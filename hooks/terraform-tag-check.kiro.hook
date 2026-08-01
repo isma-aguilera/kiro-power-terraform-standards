@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "name": "Verificar convenciones de Terraform",
+  "description": "Verifica tags, versiones pineadas, assume_role y backend.tf antes de escribir un .tf",
+  "version": "1.4.0",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": [
+      "write"
+    ],
+    "patterns": [
+      "*.tf"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Antes de escribir este archivo .tf, verifica que incluya los tags obligatorios (Environment, Team, CostCenter, ManagedBy), ya sea directamente o vía default_tags en el bloque provider. Verifica también que la restricción de versión de Terraform sea >= 1.10 y que la versión del provider de AWS esté pineada (por ejemplo, ~> 5.0 en root modules, o un rango acotado como >= 5.0, < 7.0 en módulos reutilizables — nunca un >= abierto). Si el archivo declara un bloque provider de aws, DEBE contener un bloque assume_role apuntando al rol terraform-iac (role_arn = \"arn:aws:iam::${var.aws_account_id}:role/terraform-iac\") — un provider sin assume_role es una violación del estándar y no debe escribirse; agrega el bloque y la variable obligatoria aws_account_id en su lugar. El bloque backend \"s3\" va únicamente en backend.tf: si lo detectas en versions.tf o providers.tf, muévelo. Y nunca escribas un backend comentado o con placeholders — si falta el bucket o la region, pregúntaselos al usuario antes de escribir. Si falta alguna convención, corrígela antes de escribir. Si el archivo que se va a escribir no es un archivo Terraform (.tf), omite esta verificación."
+  }
+}

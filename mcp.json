@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "terraform-mcp-server": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/<TuOrg>/terraform-mcp-server.git",
+        "terraform-mcp-server"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}",
+        "GITHUB_ORG": "<TuOrg>",
+        "MODULE_PREFIX": "terraform-aws-module-",
+        "TF_MIN_VERSION": "1.10",
+        "IAC_ROLE_NAME": "terraform-iac",
+        "BACKEND_CONFIG": "${BACKEND_CONFIG}"
+      },
+      "disabled": false
+    }
+  }
+}
